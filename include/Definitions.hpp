@@ -6,11 +6,17 @@
 enum Direction{UP, DOWN, LEFT, RIGHT};
 enum TileType{EMPTY, FOOD, HAZARD};
 
+// Constants for 2D gameboard, max indices
 const unsigned BOARD_X = 61;
 const unsigned BOARD_Y = 61;
+
 const unsigned IMAGESIZE = 8;
+
+// Total margin between gameboard and window, in pixels
+// MARGIN/2 to be exact for left, top, right
 const unsigned MARGIN = 10;
-const unsigned SCORE_MARGIN = 30;
+const unsigned SCORE_MARGIN = 30;	// specific to bottom
+
 const unsigned WINDOW_X = BOARD_X * IMAGESIZE + BOARD_X + MARGIN - 1;
 const unsigned WINDOW_Y = BOARD_Y * IMAGESIZE + BOARD_Y + MARGIN + SCORE_MARGIN - 1;
 

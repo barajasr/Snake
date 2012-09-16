@@ -6,24 +6,32 @@
 #include <vector>
 #include "Definitions.hpp"
 
+class Tiles;
+
 class Snake{
 	private:
+	bool firstMove;
 	Direction direction;
+	int frameSpeed;
 	int frameTrigger;
+	int speedTrigger;
 	std::queue<Direction> directionQueue;
 	sf::RenderWindow* screen;
-	const unsigned frameSpeed;
 	std::vector<sf::RectangleShape> body;
 
 	Direction newDirection();
 	public:
-	Snake(sf::RenderWindow* window=0);
+	Snake(sf::RenderWindow* window=0, unsigned size=5);
 	~Snake();
+	bool ateFood(sf::Vector2f position);
+	bool collidesWith(sf::Vector2f position);
+	bool edgeCollision();
+	bool selfCollision();
+	void addTailPiece();
 	void draw();
 	void print();
 	void process(const sf::Event event);
-	bool selfCollision();
-	void update();
+	void update(Tiles* tiles, sf::Vector2f position);
 };
 
 #endif

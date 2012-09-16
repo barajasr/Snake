@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include "Snake.hpp"
 #include "Tiles.hpp"
 
@@ -18,8 +17,9 @@ int main(){
 	Snake snake(&window);
 	sf::Event event;
 	sf::Color background(sf::Color::Black);
+	bool end = false;
 
-	while (window.isOpen()){
+	while (window.isOpen() && (end == false)){
 		while (window.pollEvent(event)){
 			if (event.type == sf::Event::KeyPressed){
 				snake.process(event);
@@ -29,7 +29,8 @@ int main(){
 				window.close();
 		}
 
-		snake.update();
+		snake.update(&tiles, tiles.getFood());
+		end = snake.edgeCollision() || snake.selfCollision();
 
 		window.clear(background);
 		tiles.draw();
