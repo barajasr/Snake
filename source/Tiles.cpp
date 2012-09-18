@@ -2,7 +2,6 @@
 #include "Snake.hpp"
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
 
 Tiles::Tiles(sf::RenderWindow* window)
 		:addHazardRate(2), hazardTrigger(addHazardRate), screen(window){
@@ -20,9 +19,6 @@ Tiles::Tiles(sf::RenderWindow* window)
 			board.at(x).at(y).tile.setPosition(pos);
 		}
 	food.x = food.y = BOARD_X / 2;
-
-	board[BOARD_X / 2][BOARD_Y /3].setTileType(HAZARD);
-	hazards.push_back(sf::Vector2f(BOARD_X / 2, BOARD_Y / 3));
 }
 
 bool Tiles::conflictsWithHazards(sf::Vector2f position){

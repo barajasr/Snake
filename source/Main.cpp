@@ -23,7 +23,6 @@ int main(){
 	sf::Event event;
 	sf::Color background(sf::Color::Black);
 	bool end = false;
-
 	while (window.isOpen() && (end == false)){
 		while (window.pollEvent(event)){
 			if (event.type == sf::Event::KeyPressed){

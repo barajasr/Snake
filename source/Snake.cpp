@@ -4,7 +4,7 @@
 #include "Tiles.hpp"
 
 Snake::Snake(sf::RenderWindow* window, unsigned size)
-		:firstMove(true), direction(RIGHT), frameSpeed(8), speedTrigger(3), screen(window){
+		:firstMove(true), stop(false), direction(RIGHT), frameSpeed(8), speedTrigger(3), screen(window){
 	frameTrigger = frameSpeed;
 	sf::RectangleShape tmp;
 	tmp.setSize(sf::Vector2f(IMAGESIZE, IMAGESIZE));
@@ -106,10 +106,21 @@ void Snake::process(const sf::Event event){
 			directionQueue.push(LEFT);
 		else if (event.key.code == sf::Keyboard::Right)
 			directionQueue.push(RIGHT);
+		else if (event.key.code == sf::Keyboard::Space)
+			stop = !stop;
 	}	
 }
 
 void Snake::update(Tiles* tiles, Information* info){
+	if (stop){
+		if (!info->isPaused())
+			info->pauseToggle();		
+		return;
+	}else {
+		if (info->isPaused())
+			info->pauseToggle();
+	}
+
 	if (frameTrigger <= 0){
 		if (!directionQueue.empty())
 			direction = newDirection();

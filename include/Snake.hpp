@@ -12,6 +12,7 @@ class Information;
 class Snake{
 	private:
 	bool firstMove;
+	bool stop;
 	Direction direction;
 	int frameSpeed;
 	int frameTrigger;
