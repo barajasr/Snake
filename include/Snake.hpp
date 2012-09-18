@@ -7,6 +7,7 @@
 #include "Definitions.hpp"
 
 class Tiles;
+class Information;
 
 class Snake{
 	private:
@@ -32,7 +33,7 @@ class Snake{
 	void draw();
 	void print();
 	void process(const sf::Event event);
-	void update(Tiles* tiles);
+	void update(Tiles* tiles, Information* info);
 };
 
 #endif

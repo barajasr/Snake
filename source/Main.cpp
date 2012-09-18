@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.hpp"
 #include "Tiles.hpp"
+#include "Information.hpp"
 
 int main(){
 	sf::RenderWindow window(sf::VideoMode(WINDOW_X, WINDOW_Y), 
@@ -15,6 +16,10 @@ int main(){
 
 	Tiles tiles(&window);
 	Snake snake(&window);
+	Information information(&window);
+	if (information.getLoadError())
+		return 1;
+
 	sf::Event event;
 	sf::Color background(sf::Color::Black);
 	bool end = false;
@@ -29,12 +34,13 @@ int main(){
 				window.close();
 		}
 
-		snake.update(&tiles);
+		snake.update(&tiles, &information);
 		end = snake.edgeCollision() || snake.selfCollision() || snake.collidesWith(tiles.getHazards());
 
 		window.clear(background);
 		tiles.draw();
 		snake.draw();
+		information.draw();
 		window.display();
 	}
 

@@ -1,6 +1,7 @@
+#include "Definitions.hpp"
+#include "Information.hpp"
 #include "Snake.hpp"
 #include "Tiles.hpp"
-#include "Definitions.hpp"
 
 Snake::Snake(sf::RenderWindow* window, unsigned size)
 		:firstMove(true), direction(RIGHT), frameSpeed(8), speedTrigger(3), screen(window){
@@ -108,9 +109,7 @@ void Snake::process(const sf::Event event){
 	}	
 }
 
-// position is location of Food tile,
-// used for determining if object was ate.
-void Snake::update(Tiles* tiles){
+void Snake::update(Tiles* tiles, Information* info){
 	if (frameTrigger <= 0){
 		if (!directionQueue.empty())
 			direction = newDirection();
@@ -146,6 +145,9 @@ void Snake::update(Tiles* tiles){
 					frameSpeed--;
 				speedTrigger = 3;
 			}
+
+			// Update Score 
+			info->incrementScore();
 		}
 
 		frameTrigger = frameSpeed;

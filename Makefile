@@ -8,12 +8,16 @@ APP=game
 
 all: $(APP)
 
-$(APP): $(ODIR)/Snake.o $(ODIR)/Tiles.o $(ODIR)/Main.o
+$(APP): $(ODIR)/Information.o $(ODIR)/Snake.o $(ODIR)/Tiles.o $(ODIR)/Main.o
 	$(CC) -o $(APP) $(ODIR)/*.o $(LSFML)
 
 $(ODIR)/Main.o: $(SDIR)/Main.cpp
 	$(CC) $(CFLAGS) -c $(SDIR)/Main.cpp
 	mv Main.o $(ODIR)
+
+$(ODIR)/Information.o: $(SDIR)/Information.cpp $(IDIR)/Information.hpp $(IDIR)/Definitions.hpp
+	$(CC) $(CFLAGS) -c $(SDIR)/Information.cpp
+	mv Information.o $(ODIR)
 
 $(ODIR)/Tiles.o: $(SDIR)/Tiles.cpp $(IDIR)/Tiles.hpp $(IDIR)/Definitions.hpp
 	$(CC) $(CFLAGS) -c $(SDIR)/Tiles.cpp
