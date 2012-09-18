@@ -32,6 +32,15 @@ bool Snake::collidesWith(sf::Vector2f position){
 	return false;
 }
 
+bool Snake::collidesWith(std::vector<sf::Vector2f> list){
+	if (!list.empty()){
+		for (unsigned index(0); index <	list.size(); index++)
+			if (collidesWith(list.at(index)))
+				return true;
+	}
+	return false;
+}
+
 bool Snake::edgeCollision(){
 	sf::Vector2f pos = body.at(0).getPosition();
 	if (pos.x < MARGIN/2 || pos.x > (WINDOW_X - MARGIN/2)
@@ -101,7 +110,7 @@ void Snake::process(const sf::Event event){
 
 // position is location of Food tile,
 // used for determining if object was ate.
-void Snake::update(Tiles* tiles, sf::Vector2f position){
+void Snake::update(Tiles* tiles){
 	if (frameTrigger <= 0){
 		if (!directionQueue.empty())
 			direction = newDirection();
@@ -126,7 +135,7 @@ void Snake::update(Tiles* tiles, sf::Vector2f position){
 		}
 
 		// Check if ate food
-		if (ateFood(position)){
+		if (ateFood(tiles->getFood())){
 			addTailPiece();
 			tiles->levelUp(this);
 
@@ -138,6 +147,7 @@ void Snake::update(Tiles* tiles, sf::Vector2f position){
 				speedTrigger = 3;
 			}
 		}
+
 		frameTrigger = frameSpeed;
 	}
 	if (frameSpeed > 0)

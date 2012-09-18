@@ -25,13 +25,14 @@ class Snake{
 	~Snake();
 	bool ateFood(sf::Vector2f position);
 	bool collidesWith(sf::Vector2f position);
+	bool collidesWith(std::vector<sf::Vector2f> list);
 	bool edgeCollision();
 	bool selfCollision();
 	void addTailPiece();
 	void draw();
 	void print();
 	void process(const sf::Event event);
-	void update(Tiles* tiles, sf::Vector2f position);
+	void update(Tiles* tiles);
 };
 
 #endif

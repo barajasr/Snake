@@ -29,8 +29,8 @@ int main(){
 				window.close();
 		}
 
-		snake.update(&tiles, tiles.getFood());
-		end = snake.edgeCollision() || snake.selfCollision();
+		snake.update(&tiles);
+		end = snake.edgeCollision() || snake.selfCollision() || snake.collidesWith(tiles.getHazards());
 
 		window.clear(background);
 		tiles.draw();
