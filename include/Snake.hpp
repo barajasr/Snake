@@ -8,6 +8,7 @@
 
 class Tiles;
 class Information;
+class Sounds;
 
 class Snake{
 	private:
@@ -34,7 +35,7 @@ class Snake{
 	void draw();
 	void print();
 	void process(const sf::Event event);
-	void update(Tiles* tiles, Information* info);
+	void update(Tiles* tiles, Information* info, Sounds* sounds);
 };
 
 #endif

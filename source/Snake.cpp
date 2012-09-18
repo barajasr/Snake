@@ -1,6 +1,7 @@
 #include "Definitions.hpp"
 #include "Information.hpp"
 #include "Snake.hpp"
+#include  "Sounds.hpp"
 #include "Tiles.hpp"
 
 Snake::Snake(sf::RenderWindow* window, unsigned size)
@@ -111,7 +112,7 @@ void Snake::process(const sf::Event event){
 	}	
 }
 
-void Snake::update(Tiles* tiles, Information* info){
+void Snake::update(Tiles* tiles, Information* info, Sounds* sounds){
 	if (stop){
 		if (!info->isPaused())
 			info->pauseToggle();		
@@ -159,6 +160,8 @@ void Snake::update(Tiles* tiles, Information* info){
 
 			// Update Score 
 			info->incrementScore();
+
+			sounds->playAteFood();
 		}
 
 		frameTrigger = frameSpeed;

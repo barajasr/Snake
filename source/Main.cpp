@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.hpp"
+#include "Sounds.hpp"
 #include "Tiles.hpp"
 #include "Information.hpp"
 
@@ -19,6 +20,10 @@ int main(){
 	Information information(&window);
 	if (information.getLoadError())
 		return 1;
+	Sounds sounds;
+	if (sounds.getLoadError())
+		return 1;
+
 
 	sf::Event event;
 	sf::Color background(sf::Color::Black);
@@ -33,8 +38,10 @@ int main(){
 				window.close();
 		}
 
-		snake.update(&tiles, &information);
+		snake.update(&tiles, &information, &sounds);
 		end = snake.edgeCollision() || snake.selfCollision() || snake.collidesWith(tiles.getHazards());
+		if (end)
+			sounds.playHitHazard();
 
 		window.clear(background);
 		tiles.draw();
