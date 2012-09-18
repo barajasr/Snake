@@ -25,7 +25,6 @@ class Tiles{
 	~Tiles(){}
 	sf::Vector2f getFood();
 	std::vector<sf::Vector2f> getHazards();
-	TileType getTileAt(int x, int y);
 	void draw();
 	void levelUp(Snake* snake);
 };

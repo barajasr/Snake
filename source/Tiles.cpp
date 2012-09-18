@@ -21,8 +21,8 @@ Tiles::Tiles(sf::RenderWindow* window)
 		}
 	food.x = food.y = BOARD_X / 2;
 
-	board[31][41].setTileType(HAZARD);
-	hazards.push_back(sf::Vector2f(31, 41));
+	board[BOARD_X / 2][BOARD_Y /3].setTileType(HAZARD);
+	hazards.push_back(sf::Vector2f(BOARD_X / 2, BOARD_Y / 3));
 }
 
 bool Tiles::conflictsWithHazards(sf::Vector2f position){
@@ -48,10 +48,6 @@ std::vector<sf::Vector2f> Tiles::getHazards(){
 	}
 
 	return list;
-}
-
-TileType Tiles::getTileAt(int x, int y){
-	return board.at(x).at(y).type;
 }
 
 void Tiles::addHazard(Snake* snake){
