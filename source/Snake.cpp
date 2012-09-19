@@ -5,7 +5,8 @@
 #include "Tiles.hpp"
 
 Snake::Snake(sf::RenderWindow* window, unsigned size)
-		:firstMove(true), stop(false), direction(RIGHT), frameSpeed(8), speedTrigger(3), screen(window){
+		:firstMove(true), stop(false), direction(RIGHT), 
+		frameSpeed(8),speedTrigger(3), screen(window), initialSize(size){
 	frameTrigger = frameSpeed;
 	sf::RectangleShape tmp;
 	tmp.setSize(sf::Vector2f(IMAGESIZE, IMAGESIZE));
@@ -13,7 +14,7 @@ Snake::Snake(sf::RenderWindow* window, unsigned size)
 	sf::Vector2f pos(MARGIN / 2.0f, MARGIN / 2.0f);
 	tmp.setPosition(pos);
 
-	for (unsigned i(0); i < size; i++)
+	for (unsigned i(0); i < initialSize; i++)
 		body.push_back(tmp);
 }
 
@@ -112,6 +113,22 @@ void Snake::process(const sf::Event event){
 	}	
 }
 
+void Snake::reset(){
+	firstMove = true;
+	stop = false;
+	direction = RIGHT;
+	frameSpeed = 8;
+	frameTrigger = frameSpeed;
+
+	while (body.size() > initialSize + 1){
+		body.pop_back();
+	}
+
+	sf::Vector2f position(MARGIN / 2, MARGIN / 2);
+	for (unsigned index(0); index < initialSize; index++)
+		body.at(index).setPosition(position);
+}
+
 void Snake::update(Tiles* tiles, Information* info, Sounds* sounds){
 	if (stop){
 		if (!info->isPaused())
@@ -145,7 +162,7 @@ void Snake::update(Tiles* tiles, Information* info, Sounds* sounds){
 			break;
 		}
 
-		// Check if ate food
+		// Check if ate food and applicable side effects
 		if (ateFood(tiles->getFood())){
 			addTailPiece();
 			tiles->levelUp(this);
@@ -158,9 +175,7 @@ void Snake::update(Tiles* tiles, Information* info, Sounds* sounds){
 				speedTrigger = 3;
 			}
 
-			// Update Score 
 			info->incrementScore();
-
 			sounds->playAteFood();
 		}
 

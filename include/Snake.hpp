@@ -21,6 +21,7 @@ class Snake{
 	std::queue<Direction> directionQueue;
 	sf::RenderWindow* screen;
 	std::vector<sf::RectangleShape> body;
+	unsigned initialSize;
 
 	Direction newDirection();
 	public:
@@ -35,6 +36,7 @@ class Snake{
 	void draw();
 	void print();
 	void process(const sf::Event event);
+	void reset();
 	void update(Tiles* tiles, Information* info, Sounds* sounds);
 };
 

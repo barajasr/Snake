@@ -46,26 +46,40 @@ Game::Game():errors(false){
 }
 
 Game::~Game(){
-	if(icon)
-		delete icon;
-	if (info)
-		delete info;
-	if (window)
-		delete window;
-	if (snake)
-		delete snake;
-	if (sounds)
-		delete sounds;
-	if (tiles)
-		delete tiles;
+	delete icon;
+	delete info;
+	delete window;
+	delete snake;
+	delete sounds;
+	delete tiles;
 }
 
 bool Game::getError(){
 	return errors;
 }
 
-void Game::reset(){
+void Game::gameOverScreen(){
+	info->gameOverDisplay();
+	
+	sf::Event event;
+	bool requestGameRestart(false);
+	while (window->isOpen() && !requestGameRestart){
+		while (window->pollEvent(event)){
+			if (event.type ==  sf::Event::KeyPressed && event.key.code == sf::Keyboard::R){
+				requestGameRestart = true;
+				reset();
+			}else if (event.type == sf::Event::Closed)
+				window->close();
+		}
 
+		window->display();
+	}
+}
+
+void Game::reset(){
+	tiles->reset();
+	snake->reset();
+	info->reset();
 }
 
 void Game::run(){
@@ -73,7 +87,12 @@ void Game::run(){
 	sf::Color background(sf::Color::Black);
 	bool gameover(false);
 	
-	while (window->isOpen() && !gameover){
+	while (window->isOpen()){
+		if (gameover){
+			gameOverScreen();
+			gameover = false; // Won't matter if window is closed
+		}
+			
 		while (window->pollEvent(event)){
 			if (event.type == sf::Event::KeyPressed)
 				snake->process(event);
@@ -84,7 +103,8 @@ void Game::run(){
 		}
 
 		snake->update(tiles, info, sounds);
-		gameover = snake->edgeCollision() || snake->selfCollision() || snake->collidesWith(tiles->getHazards());
+		gameover = snake->edgeCollision() || snake->selfCollision() || 
+					snake->collidesWith(tiles->getHazards());
 		if (gameover)
 			sounds->playHitHazard();
 

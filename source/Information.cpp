@@ -57,6 +57,14 @@ void Information::draw(){
 		screen->draw(pausedLabel);
 }
 
+void Information::gameOverDisplay(){
+	sf::Text text = pausedLabel;
+	text.setCharacterSize(14);
+	text.setString("GAME OVER... Press <R> to restart");
+	text.setPosition(sf::Vector2f(145, WINDOW_Y - SCORE_MARGIN + 2)); 
+	screen->draw(text);
+}
+
 void Information::incrementScore(){
 	score++;
 	scoreToString();
@@ -64,6 +72,10 @@ void Information::incrementScore(){
 
 void Information::pauseToggle(){
 	paused = !paused;
+}
+
+void Information::reset(){
+		scoreText.setString("0");
 }
 
 void Information::scoreToString(){

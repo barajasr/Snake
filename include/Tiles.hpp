@@ -27,6 +27,7 @@ class Tiles{
 	std::vector<sf::Vector2f> getHazards();
 	void draw();
 	void levelUp(Snake* snake);
+	void reset();
 };
 
 #endif

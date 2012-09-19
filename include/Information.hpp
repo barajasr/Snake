@@ -24,8 +24,10 @@ class Information{
 	bool getLoadError();
 	bool isPaused();
 	void draw();
+	void gameOverDisplay();
 	void incrementScore();
 	void pauseToggle();
+	void reset();
 };
 
 #endif

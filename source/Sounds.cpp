@@ -16,15 +16,10 @@ bool Sounds::getLoadError(){
 	return loadError;
 }
 
-bool Sounds::wait(){
-	return bool(hitHazard.getStatus() == sf::SoundSource::Playing);
-}
-
 void Sounds::playAteFood(){
 	ateFood.play();
 }
 
 void Sounds::playHitHazard(){
 	hitHazard.play();
-	while(this->wait());
 }

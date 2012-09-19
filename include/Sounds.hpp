@@ -11,8 +11,6 @@ class Sounds{
 	sf::SoundBuffer food;
 	sf::SoundBuffer hazard;
 
-	bool wait();
-
 	public:
 	Sounds();
 	~Sounds();

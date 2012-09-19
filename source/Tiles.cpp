@@ -10,7 +10,9 @@ Tiles::Tiles(sf::RenderWindow* window)
 	for (unsigned x(0); x < BOARD_X; x++)
 		board.push_back(tmp);
 	
-	board[BOARD_X / 2][BOARD_Y / 2].setTileType(FOOD);
+	food.x = BOARD_X / 2;
+	food.y = BOARD_Y / 2;
+	board[food.x][food.y].setTileType(FOOD);
 	sf::Vector2f pos;
 	for (unsigned x(0); x < BOARD_X; x++)
 		for (unsigned y(0); y < BOARD_Y; y++){
@@ -18,7 +20,6 @@ Tiles::Tiles(sf::RenderWindow* window)
 			pos.y =  IMAGESIZE * y + y + MARGIN / 2;
 			board.at(x).at(y).tile.setPosition(pos);
 		}
-	food.x = food.y = BOARD_X / 2;
 }
 
 bool Tiles::conflictsWithHazards(sf::Vector2f position){
@@ -74,6 +75,22 @@ void Tiles::levelUp(Snake* snake){
 		addHazard(snake);
 		hazardTrigger = addHazardRate;
 	}
+}
+
+void Tiles::reset(){
+	hazardTrigger = addHazardRate;
+
+	sf::Vector2f tmp(0, 0);
+	for (unsigned index(hazards.size() - 1); !hazards.empty(); index--){
+		tmp = hazards.at(index);
+		board[tmp.x][tmp.y].setTileType(EMPTY);
+		hazards.pop_back();
+	}
+
+	board[food.x][food.y].setTileType(EMPTY);
+	food.x = BOARD_X / 2;
+	food.y = BOARD_Y / 2;
+	board[food.x][food.y].setTileType(FOOD);
 }
 
 void Tiles::newFoodLocation(Snake* snake){

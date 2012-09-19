@@ -20,6 +20,7 @@ class Game{
 	Sounds* sounds;
 	Tiles* tiles;
 	
+	void gameOverScreen();
 	void reset();
 	
 	public:
