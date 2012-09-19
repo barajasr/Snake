@@ -35,7 +35,6 @@ Game::Game():errors(false){
 		}
 
 		if (sounds->getLoadError() || info->getLoadError()){
-			std::cerr <<"ERROR: loading...\n";
 			errors = true;
 			return;
 		}
@@ -47,6 +46,8 @@ Game::Game():errors(false){
 }
 
 Game::~Game(){
+	if(icon)
+		delete icon;
 	if (info)
 		delete info;
 	if (window)
