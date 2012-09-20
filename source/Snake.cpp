@@ -20,12 +20,12 @@ Snake::Snake(sf::RenderWindow* window, unsigned size)
 
 Snake::~Snake(){}
 
-bool Snake::ateFood(sf::Vector2f position){
+bool Snake::ateFood(const sf::Vector2f& position) const{
 	sf::Vector2f head = body.at(0).getPosition();
 	return ((head.x == position.x) && (head.y == position.y));
 }
 
-bool Snake::collidesWith(sf::Vector2f position){
+bool Snake::collidesWith(const sf::Vector2f& position) const{
 	sf::Vector2f bodyPosition(0, 0);
 	for (unsigned index(0); index <	body.size(); index++){
 		bodyPosition = body.at(index).getPosition();
@@ -35,7 +35,7 @@ bool Snake::collidesWith(sf::Vector2f position){
 	return false;
 }
 
-bool Snake::collidesWith(std::vector<sf::Vector2f> list){
+bool Snake::collidesWith(const std::vector<sf::Vector2f>& list) const{
 	if (!list.empty()){
 		for (unsigned index(0); index <	list.size(); index++)
 			if (collidesWith(list.at(index)))
@@ -44,7 +44,7 @@ bool Snake::collidesWith(std::vector<sf::Vector2f> list){
 	return false;
 }
 
-bool Snake::edgeCollision(){
+bool Snake::edgeCollision() const{
 	sf::Vector2f pos = body.at(0).getPosition();
 	if (pos.x < MARGIN/2 || pos.x > (WINDOW_X - MARGIN/2)
 			|| pos.y < MARGIN/2 || pos.y > (WINDOW_Y - MARGIN/2 - SCORE_MARGIN))
@@ -52,7 +52,7 @@ bool Snake::edgeCollision(){
 	return false;
 }
 
-bool Snake::selfCollision(){
+bool Snake::selfCollision() const{
 	sf::Vector2f head = body.at(0).getPosition();
 	sf::Vector2f current = body.at(1).getPosition();
 	if ((head.x == current.x) && (head.y == current.y))
@@ -93,12 +93,12 @@ void Snake::addTailPiece(){
 	body.push_back(body.at(body.size() - 1));
 }
 
-void Snake::draw(){
+void Snake::draw() const{
 	for (unsigned x(0); x < body.size(); x++)
 		screen->draw(body.at(x));
 }
 
-void Snake::process(const sf::Event event){
+void Snake::process(const sf::Event& event){
 	if (event.type == sf::Event::KeyPressed){
 		if (event.key.code == sf::Keyboard::Up)
 			directionQueue.push(UP);

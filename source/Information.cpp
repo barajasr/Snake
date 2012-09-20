@@ -40,15 +40,17 @@ Information::Information(sf::RenderWindow* window)
 	}
 }
 
-bool Information::getLoadError(){
+Information::~Information(){}
+
+bool Information::getLoadError() const{
 	return loadError;
 }
 
-bool Information::isPaused(){
+bool Information::isPaused() const{
 	return paused;
 }
 
-void Information::draw(){
+void Information::draw() const{
 	screen->draw(scoreLabel);
 	screen->draw(scoreText);
 	for (unsigned index(0); index < controlsList.size(); index++)
@@ -57,7 +59,7 @@ void Information::draw(){
 		screen->draw(pausedLabel);
 }
 
-void Information::gameOverDisplay(){
+void Information::gameOverDisplay() const{
 	sf::Text text = pausedLabel;
 	text.setCharacterSize(14);
 	text.setString("GAME OVER... Press <R> to restart");

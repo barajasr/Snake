@@ -54,7 +54,7 @@ Game::~Game(){
 	delete tiles;
 }
 
-bool Game::getError(){
+bool Game::getError() const{
 	return errors;
 }
 

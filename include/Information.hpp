@@ -20,11 +20,11 @@ class Information{
 
 	public:
 	Information(sf::RenderWindow* window=0);
-	~Information(){}
-	bool getLoadError();
-	bool isPaused();
-	void draw();
-	void gameOverDisplay();
+	~Information();
+	bool getLoadError() const;
+	bool isPaused() const;
+	void draw() const;
+	void gameOverDisplay() const;
 	void incrementScore();
 	void pauseToggle();
 	void reset();

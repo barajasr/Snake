@@ -26,7 +26,7 @@ class Game{
 	public:
 	Game();
 	~Game();
-	bool getError();
+	bool getError() const;
 	void run();
 };
 

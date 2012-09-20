@@ -22,7 +22,7 @@ Tiles::Tiles(sf::RenderWindow* window)
 		}
 }
 
-bool Tiles::conflictsWithHazards(sf::Vector2f position){
+bool Tiles::conflictsWithHazards(const sf::Vector2f& position) const{
 	sf::Vector2f current(0, 0);
 	for (unsigned index(0); index < hazards.size(); index++){
 		current = hazards.at(index);
@@ -32,11 +32,11 @@ bool Tiles::conflictsWithHazards(sf::Vector2f position){
 	return false;
 }
 
-sf::Vector2f Tiles::getFood(){
+sf::Vector2f Tiles::getFood() const{
 	return board.at(food.x).at(food.y).tile.getPosition();
 }
 
-std::vector<sf::Vector2f> Tiles::getHazards(){
+std::vector<sf::Vector2f> Tiles::getHazards() const{
 	std::vector<sf::Vector2f> list;
 	sf::Vector2f position;
 	for (unsigned index(0); index < hazards.size(); index++){
@@ -62,7 +62,7 @@ void Tiles::addHazard(Snake* snake){
 	hazards.push_back(newTile);
 }
 
-void Tiles::draw(){
+void Tiles::draw() const{
 	for (unsigned x(0); x < BOARD_X; x++)
 		for (unsigned y(0); y < BOARD_Y; y++)
 			screen->draw(board.at(x).at(y).tile);
